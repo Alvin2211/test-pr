@@ -1,0 +1,13 @@
+{
+  "name": "distributed-task-scheduler-demo",
+  "version": "1.0.0",
+  "description": "Interactive demonstration of a distributed task scheduler with heartbeat-based failure detection and task reassignment",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Distributed Task Scheduler</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">DS</div>
+        <div><strong>TaskMesh</strong><small>Distributed Systems Lab</small></div>
+      </div>
+      <div class="side-label">WORKSPACE</div>
+      <div class="nav-item active"><span>▦</span> Scheduler Overview</div>
+      <div class="nav-item"><span>⌘</span> Worker Cluster <span class="nav-count">3</span></div>
+      <div class="nav-item"><span>≋</span> Task Queue</div>
+      <div class="nav-item"><span>◷</span> Event Logs</div>
+      <div class="sidebar-bottom">
+        <div class="course-pill"><span class="pulse"></span><div><b>Demo environment</b><small>Local simulation · v1.0</small></div></div>
+        <p>Built to demonstrate master–worker coordination, heartbeats and task recovery.</p>
+      </div>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        <div><div class="eyebrow">DISTRIBUTED SYSTEMS / PROJECT DEMO</div><h1>Scheduler Overview</h1><p class="subtitle">Coordinate tasks across workers. Detect failures. Recover automatically.</p></div>
+        <div class="connection"><span class="pulse"></span><span id="connectionText">Connecting to scheduler…</span></div>
+      </header>
+
+      <section class="metrics-grid">
+        <div class="metric-card"><div class="metric-head">Total tasks <span class="metric-icon purple">▦</span></div><div id="metricTotal" class="metric-value">0</div><div class="metric-foot">Submitted by clients</div></div>
+        <div class="metric-card"><div class="metric-head">Running <span class="metric-icon blue">▶</span></div><div id="metricRunning" class="metric-value">0</div><div class="metric-foot"><span class="dot blue-dot"></span> Actively executing</div></div>
+        <div class="metric-card"><div class="metric-head">Completed <span class="metric-icon green">✓</span></div><div id="metricCompleted" class="metric-value">0</div><div class="metric-foot">Successfully processed</div></div>
+        <div class="metric-card"><div class="metric-head">Reassignments <span class="metric-icon orange">↻</span></div><div id="metricReassignments" class="metric-value">0</div><div class="metric-foot">Recovery actions taken</div></div>
+      </section>
+
+      <section class="content-grid">
+        <div class="panel cluster-panel">
+          <div class="panel-heading"><div><h2>Worker cluster</h2><p>Master monitors worker heartbeats and availability.</p></div><span id="onlineBadge" class="badge">3 ONLINE</span></div>
+          <div class="master-node">
+            <div class="node-icon master-icon">M</div><div class="node-copy"><b>Master / Scheduler</b><small>Task queue · Dispatch · Failure detector</small></div><span class="status-chip healthy">ACTIVE</span>
+          </div>
+          <div class="connector-label"><span></span><small>HEARTBEAT + TASK ASSIGNMENT</small><span></span></div>
+          <div id="workers" class="workers-grid"></div>
+          <div class="cluster-legend"><span><i class="legend-dot online"></i>Online</span><span><i class="legend-dot offline"></i>Offline</span><span><i class="legend-dot busy"></i>Executing task</span></div>
+        </div>
+
+        <div class="panel action-panel">
+          <div class="panel-heading"><div><h2>Demo controls</h2><p>Trigger events to show system behavior.</p></div><span class="spark">✦</span></div>
+          <button id="addTask" class="btn btn-primary"><span>＋</span> Submit a task</button>
+          <button id="addBatch" class="btn btn-secondary"><span>▤</span> Submit batch of 5 tasks</button>
+          <div class="control-divider"></div>
+          <div class="scenario-title">FAILURE SIMULATION</div>
+          <p class="scenario-copy">Take a worker offline while it is processing. The scheduler will requeue and reassign its unfinished task.</p>
+          <div id="failureButtons" class="failure-buttons"></div>
+          <button id="reset" class="btn btn-ghost"><span>↻</span> Reset demonstration</button>
+          <button id="pause" class="btn btn-ghost"><span>Ⅱ</span> Pause task progress</button>
+          <div class="tip"><b>Demo tip</b><p>Submit a few tasks, then take the worker running a task offline. Watch the reassignment counter and event log update.</p></div>
+        </div>
+      </section>
+
+      <section class="bottom-grid">
+        <div class="panel tasks-panel">
+          <div class="panel-heading"><div><h2>Task queue</h2><p>Live status of submitted work.</p></div><span id="taskCount" class="muted-count">0 tasks</span></div>
+          <div class="table-wrap"><table><thead><tr><th>TASK</th><th>WORK ITEM</th><th>WORKER</th><th>PROGRESS</th><th>STATUS</th></tr></thead><tbody id="taskRows"><tr><td colspan="5" class="empty">No tasks yet. Submit a task to begin.</td></tr></tbody></table></div>
+        </div>
+        <div class="panel events-panel">
+          <div class="panel-heading"><div><h2>Event stream</h2><p>Scheduler activity in real time.</p></div><span class="live-tag"><i></i> LIVE</span></div>
+          <div id="events" class="event-list"><div class="empty">Waiting for scheduler events…</div></div>
+        </div>
+      </section>
+      <footer><span>TaskMesh <b>·</b> Distributed Task Scheduler Demo</span><span>Master–Worker Architecture <b>·</b> Heartbeat Failure Detection</span></footer>
+    </main>
+  </div>
+  <script src="/app.js"></script>
+</body>
+</html>
