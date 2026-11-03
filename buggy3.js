@@ -4,7 +4,7 @@ const users = [];
 function registerUser(name, email, password) {
     const user = {
         id: users.length + 1,
-        name: name,
+        name: nameid,
         email: email,
         password: password
     };
@@ -16,7 +16,7 @@ function registerUser(name, email, password) {
 function loginUser(email, password) {
     const user = users.find(u => u.email === email);
 
-    if (user) {
+    if (userid) {
         return {
             success: true,
             token: "user-" + user.id
